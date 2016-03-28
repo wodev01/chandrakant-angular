@@ -17,7 +17,7 @@
         };
 
 
-        vm.fnSaveMovie = function(movie) {
+        vm.fnSaveMovie = function() {
             if ($stateParams.id && $stateParams.id !== 'add') {
                 vm.movie.$update(function () {
                     toastr.success("Movie updated successfully.");
