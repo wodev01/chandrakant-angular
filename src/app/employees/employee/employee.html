@@ -1,0 +1,43 @@
+<section ng-init="employee.fnInitEmployee()">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Employee
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <form name="employeeForm" class="form-horizontal" role="form" novalidate>
+               <div class="form-group" ng-class="{ 'has-error':  employeeForm.name.$dirty && employeeForm.name.$error.required ||  employeeForm.name.$touched && employeeForm.name.$invalid}">
+                    <label class="control-label col-sm-2">Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="employee.employee.name" class="form-control" name="name" id="name" placeholder="Employee name" required=""/>
+                        <span ng-show="employeeForm.name.$dirty && employeeForm.name.$error.required ||  employeeForm.name.$touched && employeeForm.name.$invalid" class="help-block">Employee name is required</span>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error':  employeeForm.company.$dirty && employeeForm.company.$error.required ||  employeeForm.company.$touched && employeeForm.company.$invalid}">
+                    <label class="control-label col-sm-2">Company</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="employee.employee.company" class="form-control" name="company" id="company" placeholder="Employee Company name" required=""/>
+                        <span ng-show="employeeForm.company.$dirty && employeeForm.company.$error.required || employeeForm.company.$touched && employeeForm.company.$invalid" class="help-block">Employee Company name is required</span>
+                        <!--<span ng-show="employeeForm.company.$touched && employeeForm.company.$invalid">Please fill up company name.</span>-->
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error':  employeeForm.balance.$dirty && employeeForm.balance.$error.required ||  employeeForm.balance.$touched && employeeForm.balance.$invalid}">
+                    <label class="control-label col-sm-2">Balance</label>
+                    <div class="col-sm-10">
+                        <input type="number" ng-model="employee.employee.balance" class="form-control" name="balance" id="balance" placeholder="Employee Balance" required=""/>
+                        <span ng-show="employeeForm.balance.$dirty && employeeForm.balance.$error.required ||  employeeForm.balance.$touched && employeeForm.balance.$invalid" class="help-block">Employee balance is required</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button  ng-disabled="employeeForm.$invalid" ng-click="employee.fnSaveEmployee(employee.employee)" class="btn btn-default" ng-bind="employee.employee._id ? 'Update' : 'Create'"></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

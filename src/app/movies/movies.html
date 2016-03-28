@@ -1,0 +1,40 @@
+<section ng-init="movies.fnInitMovies()">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                 Movies (Angular-resource)
+                <button class="btn btn-primary pull-right" data-toggle="tooltip" data-placement="left" title="Add Movie" ui-sref="main.movie({id:'add'})"><i class="glyphicon glyphicon-plus"></i></button>
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Release Year</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="movie in movies.movies">
+                        <td ng-bind="movie._id"></td>
+                        <td ng-bind="movie.title"></td>
+                        <td ng-bind="movie.releaseYear"></td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <button type="button"  class="btn btn-primary" ui-sref="main.movie({id:movie._id})"><i class="glyphicon glyphicon-edit"></i></button>
+                                <button type="button"  class="btn btn-danger" ng-click="movies.fnDeleteMovie(movie)"><i class="glyphicon glyphicon-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
