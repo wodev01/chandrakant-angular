@@ -152,14 +152,6 @@ ul.alert-dropdown {
     color: #fff;
 }
 
-/*.side-nav>li>ul>li>a .active {*/
-    /*background: #c2c2c2;*/
-/*}*/
-
-/*.side-nav li.active{*/
-    /*background-color: #000;*/
-/*}*/
-
 .active a{background-color: #000;}
 
 .side-nav a {text-decoration: none;}
@@ -185,9 +177,35 @@ ul.alert-dropdown {
     border-radius: 50%;
 }
 
+.image-wrapper{
+    padding-left: 20px;
+    padding-top: 10px;
+
+}
+.grid-employee-image .img{
+    /*font-size: 2em;*/
+    /*color: #A9A9A9;*/
+    border: 1px solid #ccc;
+    border-radius: 50%;
+}
+
 .gridLableEmpName{
     margin: 10px;
 }
 
+.myGrid {
+    width: 100%;
+    height: 400px;
+}
+.header-filtered {
+    color: blue;
+}
 
+.myGrid .ui-grid-row {
+    height: 50px;
+}
+
+.wrap {
+    white-space: normal;
+}
 

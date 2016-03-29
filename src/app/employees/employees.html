@@ -74,6 +74,18 @@
                         </div>
                     </div>
                 </uib-tab>
+                <uib-tab heading="Ui-Grid View">
+                    <div class="row tab-details">
+                        <div class="col-lg-12">
+                            <div id="employeeGrid" ui-grid="employees.empGridOption" class="myGrid"
+                                 ui-grid-auto-resize ui-grid-cellNav ui-grid-move-columns
+                                 ui-grid-pinning ui-grid-resize-columns
+                                 ui-grid-exporter ui-grid-pagination ui-grid-selection></div>
+                            <!--<button id="save" type="button" class="btn btn-success" ng-click="employees.fnSaveState()">Save</button>-->
+                            <!--<button id="restore" type="button" class="btn btn-success" ng-click="employees.fnRestoreState()">Restore</button>-->
+                        </div>
+                     </div>
+                </uib-tab>
             </uib-tabset>
         </div>
     </div>
