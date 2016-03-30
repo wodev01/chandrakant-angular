@@ -27,7 +27,7 @@
             controllerAs: 'dashboard'
         })
         .state('main.employees', {
-          url: 'employees',
+          url: 'employees/:view',
           templateUrl: 'app/employees/employees.html',
           controller: 'EmployeesController',
           controllerAs: 'employees'

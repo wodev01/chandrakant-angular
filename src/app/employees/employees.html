@@ -14,13 +14,11 @@
     </div>
     <div class="row tab-view">
         <div class="col-lg-12">
-            <uib-tabset>
-                <uib-tab heading="Grid View">
+            <uib-tabset active="employees.selectedTabIndex">
+                <uib-tab ui-sref="main.employees({view:'grid'})" index="1" heading="Grid View">
                     <div class="row tab-details">
-                        <!--ng-if="'grid'==employeesView.type"-->
                         <div class="col-lg-12">
                             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 employee-detail" ng-repeat="employee in employees.employees | filter: searchEmployee">
-                                <!--<img src="assets/images/profile.png" class="img-responsive" alt="profile">-->
                                 <div>
                                     <i class="glyphicon glyphicon-user employee-image"></i>
                                 </div>
@@ -28,6 +26,7 @@
                                     <span ng-bind="employee.name"></span>
                                 </div>
                                 <div class=" btn-group btn-group-sm">
+                                    <button type="button"  class="btn btn-default"  ng-click="employees.fnModalViewEmployee(employee,'lg')"><i class="glyphicon glyphicon-th-list"></i></button>
                                     <button type="button"  class="btn btn-default"  ui-sref="main.employee({id:employee._id})"><i class="glyphicon glyphicon-edit"></i></button>
                                     <button type="button"  class="btn btn-danger" ng-click="employees.fnRemoveEmployee(employee._id)"><i class="glyphicon glyphicon-trash"></i></button>
                                 </div>
@@ -35,7 +34,7 @@
                         </div>
                     </div>
                 </uib-tab>
-                <uib-tab heading="List View">
+                <uib-tab ui-sref="main.employees({view:'list'})" index="2" heading="List View">
                     <div class="row tab-details">
                         <div class="col-lg-12">
                             <div class="table-responsive">
@@ -74,15 +73,13 @@
                         </div>
                     </div>
                 </uib-tab>
-                <uib-tab heading="Ui-Grid View">
+                <uib-tab ui-sref="main.employees({view:'ui-grid'})" index="3" heading="Ui-Grid View">
                     <div class="row tab-details">
                         <div class="col-lg-12">
                             <div id="employeeGrid" ui-grid="employees.empGridOption" class="myGrid"
                                  ui-grid-auto-resize ui-grid-cellNav ui-grid-move-columns
                                  ui-grid-pinning ui-grid-resize-columns
                                  ui-grid-exporter ui-grid-pagination ui-grid-selection></div>
-                            <!--<button id="save" type="button" class="btn btn-success" ng-click="employees.fnSaveState()">Save</button>-->
-                            <!--<button id="restore" type="button" class="btn btn-success" ng-click="employees.fnRestoreState()">Restore</button>-->
                         </div>
                      </div>
                 </uib-tab>

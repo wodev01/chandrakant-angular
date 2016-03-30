@@ -1,11 +1,25 @@
 <section ng-init="employee.fnInitEmployee()">
     <!-- Page Heading -->
     <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">
-                Employee
-            </h1>
+        <div class="col-lg-12 col-md-10 col-sm-10 page-header">
+            <div class="col-lg-6">
+                <h1>Employee</h1>
+            </div>
+            <div class="col-lg-6" style="height: 70px;text-align: right;padding-right: 0;">
+                <div class="btn-group" style="margin-top: 30px;">
+                    <button class="btn btn-sm btn-default" type="button" ui-sref="main.employees({view:'grid'})">
+                        Grid
+                    </button>
+                    <button class="btn btn-sm btn-default" type="button"  ui-sref="main.employees({view:'list'})">
+                        List
+                    </button>
+                    <button class="btn btn-sm btn-default" type="button"  ui-sref="main.employees({view:'ui-grid'})">
+                        Ui-Grid
+                    </button>
+                 </div>
+            </div>
         </div>
+
     </div>
     <div class="row">
         <div class="col-lg-12">
@@ -67,7 +81,11 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button  ng-disabled="employeeForm.$invalid" ng-click="employee.fnSaveEmployee(employee.employee)" class="btn btn-default" ng-bind="employee.employee._id ? 'Update' : 'Create'"></button>
+                        <button  ng-disabled="employeeForm.$invalid || !employeeForm.$dirty" ng-click="employee.fnSaveEmployee(employee.employee)" class="btn btn-default" ng-bind="employee.employee._id ? 'Update' : 'Create'"></button>
+                        <span ng-if="employee.employee._id">
+                            <button   ng-disabled="!employeeForm.$dirty" class="btn btn-default" ng-click="employee.fnReset()">Reset</button>
+                            <button  ng-disabled="employeeForm.$invalid" class="btn btn-danger" ng-click="employee.fnRemoveEmployee(employee.employee._id)">Delete</button>
+                        </span>
                     </div>
                 </div>
             </form>
