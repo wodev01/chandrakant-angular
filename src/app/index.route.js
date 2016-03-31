@@ -52,7 +52,7 @@
         })
         .state('main.aboutus', {
             url: 'aboutus',
-            templateUrl: 'app/aboutu/aboutus.html',
+            templateUrl: 'app/aboutus/aboutus.html',
             controller: 'AboutUsController',
             controllerAs: 'about'
         })

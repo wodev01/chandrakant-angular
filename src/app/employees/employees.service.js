@@ -24,12 +24,15 @@
         //save method create a new employee if not already exists
         //else update the existing object
         this.save = function (employee) {
+            var employeeExist = false;
             var empDB = localStorage.getItem('empDB') ? JSON.parse(localStorage.getItem('empDB')) : employees;
-
+            var deferred = $q.defer();
             if (!employee._id) {
                 //if this is new employee, add it in employees array
                 employee._id = this._id();
                 empDB.push(employee);
+                // here new employee status
+                employeeExist = true;
             } else {
                 //For existing employee, find this employee using id
                 //and update it.
@@ -37,26 +40,38 @@
                     if (empDB[i]._id == employee._id) {
                         $log.log("in update", employee);
                         empDB[i] = employee;
+                        employeeExist = true;
                     }
                 }
             }
             localStorage.setItem('empDB',JSON.stringify(empDB));
+
+            if(employeeExist)
+                deferred.resolve(true);
+            else
+                deferred.resolve(false);
+
+            return deferred.promise;
         };
 
         //simply search employees list for given id
         //and returns the employee object if found
         this.get = function (id) {
             var empDB = localStorage.getItem('empDB') ? JSON.parse(localStorage.getItem('empDB')) : employees;
+            var deferred = $q.defer();
             var isEmpFind = false;
             for (i in empDB) {
                 if (empDB[i]._id == id) {
                     isEmpFind = true;
-                    return empDB[i];
+                    deferred.resolve(empDB[i]);
+//                    return empDB[i];
                 }
             }
             if(!isEmpFind){
-                return {};
+                deferred.reject({});
+//                return {};
             }
+            return deferred.promise;
         };
 
         //iterate through employees list and delete

@@ -8,17 +8,17 @@
     /** @ngInject */
     function EmployeesController($stateParams,EmployeesService,toastr,modalService,uiGridGroupingConstants,uiGridConstants,$state,$uibModal,$log) {
         var vm = this;
-        vm.fnRemoveEmployee = function(id){
+        vm.fnRemoveEmployee = function(employee){
             var modalDeleteOptions = {
                 closeButtonText: 'Cancel',
                 actionButtonText: 'Delete Employee',
-                headerText: 'Delete ?',
+                headerText: 'Delete '+employee.name +' ?',
                 bodyText: 'Are you sure you want to delete this Employee?'
             };
             modalService.showModal({}, modalDeleteOptions).then(function () {
-                EmployeesService.remove(id)
+                EmployeesService.remove(employee._id)
                     .then(function () {
-                        toastr.success("Employee Deleted Successfully.");
+                        toastr.success(employee.name+" Deleted Successfully.");
                         vm.fnListEmployees();
                     }, function () {
                         toastr.error("Employee Deleted getting problem!!");
@@ -40,7 +40,13 @@
                     }
                 }
             });
-        }
+
+            modalInstance.result.then(function(){
+                vm.fnListEmployees();
+            }, function(error) {
+                toastr.error('Employee view modal dismissed at: ' + new Date() + error);
+            });
+        };
 
         /*--- START : Employees UI Grid ---*/
 
@@ -80,6 +86,12 @@
             appScopeProvider: {
                 showEmployeeDetails : function(row){
                     $state.go('main.employee',{'id':row.entity._id});
+                },
+                deleteEmployeeRow : function(row) {
+                    if(vm.fnRemoveEmployee(row.entity)) {
+                        var index = vm.empGridOption.data.indexOf(row.entity);
+                        vm.empGridOption.data.splice(index, 1);
+                    }
                 }
             },
             rowTemplate: "<div ng-dblclick=\"grid.appScope.showEmployeeDetails(row)\" ng-repeat=\"(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name\" class=\"ui-grid-cell\" ng-class=\"{ 'ui-grid-row-header-cell': col.isRowHeader }\" ui-grid-cell></div>"
@@ -89,7 +101,7 @@
             {
                 name: 'picture',
                 displayName: 'Picture',
-                cellTemplate : '<div class="ngCellText ui-grid-cell-contents ng-binding ng-scope image-wrapper"><img src="{{COL_FIELD}}" " alt="" height="30" width="30"></div>',
+                cellTemplate : '<div class="ngCellText ui-grid-cell-contents ng-binding ng-scope image-wrapper"><img src="{{COL_FIELD}}" height="30" width="30"/></div>',
                 width : '8%',
                 enableFiltering : false
             },
@@ -98,12 +110,24 @@
             { name: 'gender', displayName: 'Gender',width: '7%',enableFiltering : false},
             { name: 'email', displayName: 'Email',enableFiltering : false},
             { name: 'registered', displayName: 'Register Date',width:'10%',type: 'date',cellFilter: 'date:\'yyyy-MM-dd\'',enableFiltering : false},
-            { name: 'balance', displayName: 'Balance',width:'10%',aggregationType: uiGridConstants.aggregationTypes.sum,
+            { name: 'balance', displayName: 'Balance',width:'10%',
+                aggregationType: uiGridConstants.aggregationTypes.sum,
                 treeAggregationType: uiGridGroupingConstants.aggregation.SUM,
                 customTreeAggregationFinalizerFn: function( aggregation ) {
                     aggregation.rendered = aggregation.value;
-                },
+                }, cellFilter: 'number: 2',
                 enableFiltering : false
+            },
+            {
+                name: 'operation',displayName:'',
+                width : '5%',
+                cellTemplate:
+                    '<div class="margin-top-7 padding-left-5 grid-operation">' +
+                        '<button type="button"  class="btn btn-danger" ng-click="grid.appScope.deleteEmployeeRow(row)"><i class="glyphicon glyphicon-trash"></i></button>' +
+                     '</div>',
+                enableFiltering : false,
+                enableColumnMenu : false,
+                enableSorting : false
             }
         ];
 
@@ -113,10 +137,6 @@
         vm.fnListEmployees = function(){
             vm.employees = EmployeesService.list();
             vm.empGridOption.data = vm.employees;
-        };
-
-        vm.fnReturnTabIndex = function(view){
-
         };
 
         vm.fnInitEmployees = function(){

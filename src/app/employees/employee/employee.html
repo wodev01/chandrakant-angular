@@ -27,8 +27,9 @@
                <div class="form-group" ng-class="{ 'has-error':  employeeForm.name.$dirty && employeeForm.name.$error.required ||  employeeForm.name.$touched && employeeForm.name.$invalid}">
                     <label class="control-label col-sm-2">Name *</label>
                     <div class="col-sm-10">
-                        <input type="text" ng-model="employee.employee.name" class="form-control" name="name" id="name" placeholder="Employee name" required=""/>
-                        <span ng-show="employeeForm.name.$dirty && employeeForm.name.$error.required ||  employeeForm.name.$touched && employeeForm.name.$invalid" class="help-block">Employee name is required</span>
+                        <input type="text" ng-model="employee.employee.name" ng-pattern="/^[a-zA-Z\s]*$/" class="form-control" name="name" id="name" placeholder="Employee name" required=""/>
+                        <span ng-show="employeeForm.name.$dirty && employeeForm.name.$error.required" class="help-block">Employee name is required</span>
+                        <span ng-show="employeeForm.name.$touched && employeeForm.name.$invalid" class="help-block">Please input valid name.</span>
                     </div>
                 </div>
                 <div class="form-group" ng-class="{ 'has-error':  employeeForm.company.$dirty && employeeForm.company.$error.required ||  employeeForm.company.$touched && employeeForm.company.$invalid}">
@@ -84,7 +85,7 @@
                         <button  ng-disabled="employeeForm.$invalid || !employeeForm.$dirty" ng-click="employee.fnSaveEmployee(employee.employee)" class="btn btn-default" ng-bind="employee.employee._id ? 'Update' : 'Create'"></button>
                         <span ng-if="employee.employee._id">
                             <button   ng-disabled="!employeeForm.$dirty" class="btn btn-default" ng-click="employee.fnReset()">Reset</button>
-                            <button  ng-disabled="employeeForm.$invalid" class="btn btn-danger" ng-click="employee.fnRemoveEmployee(employee.employee._id)">Delete</button>
+                            <button  ng-disabled="employeeForm.$invalid" class="btn btn-danger" ng-click="employee.fnRemoveEmployee(employee.employee)">Delete</button>
                         </span>
                     </div>
                 </div>

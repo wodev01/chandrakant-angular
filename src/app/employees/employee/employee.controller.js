@@ -6,7 +6,7 @@
         .controller('EmployeeController', EmployeeController);
 
     /** @ngInject */
-    function EmployeeController($stateParams,EmployeesService,toastr,$state,$filter,modalService) {
+    function EmployeeController($stateParams,EmployeesService,toastr,$state,$filter,modalService,$log) {
 
         var vm = this;
         // temporary object to store specific employee data for reset when updating
@@ -18,18 +18,18 @@
         };
 
         /*--- START : For delete employee from : Employee form --*/
-        var modalOptions = {
-            closeButtonText: 'Cancel',
-            actionButtonText: 'Delete Employee',
-            headerText: 'Delete ?',
-            bodyText: 'Are you sure you want to delete this Employee?'
-        };
+        vm.fnRemoveEmployee = function(employee){
+            var modalOptions = {
+                closeButtonText: 'Cancel',
+                actionButtonText: 'Delete Employee',
+                headerText: 'Delete '+employee.name +' ?',
+                bodyText: 'Are you sure you want to delete this Employee?'
+            };
 
-        vm.fnRemoveEmployee = function(id){
             modalService.showModal({}, modalOptions).then(function () {
-                EmployeesService.remove(id)
+                EmployeesService.remove(employee._id)
                     .then(function () {
-                        toastr.success("Employee Deleted Successfully.");
+                        toastr.success(employee.name+" Deleted Successfully.");
                         $state.go('main.employees',{'view':'grid'});
                     }, function () {
                         toastr.error("Employee Deleted getting problem!!");
@@ -40,16 +40,24 @@
 
 
         vm.fnGetEmployee = function(){
-            vm.employee = EmployeesService.get($stateParams.id);
-            vm.employee.registered = $stateParams.id === 'add' ? new Date() : new Date($filter('date')(vm.employee.registered.split(' ')[0], "yyyy-MM-dd"));
-            vm.employee.gender = $stateParams.id === 'add' ? 'male' : vm.employee.gender;
-            // store the specific employee data when updating to require original data
-            vm.preFilledEmployeeData = angular.copy(vm.employee);
+            EmployeesService.get($stateParams.id)
+                .then(function(emp){
+                    vm.employee = emp;
+                    $log.log("Get employee: ",emp);
+                    vm.employee.registered = $stateParams.id === 'add' ? new Date() : new Date($filter('date')(vm.employee.registered, "yyyy-MM-dd"));
+                    vm.employee.gender = $stateParams.id === 'add' ? 'male' : vm.employee.gender;
+                    // store the specific employee data when updating to require original data
+                    vm.preFilledEmployeeData = angular.copy(vm.employee);
+                });
         };
 
         vm.fnSaveEmployee = function(employee){
-            EmployeesService.save(employee);
-            toastr.success(employee.name +" saved successfully.");
+            EmployeesService.save(employee)
+                .then(function () {
+                    toastr.success(employee.name +" saved successfully.");
+                }, function () {
+                    toastr.error("For employee saving problem!!");
+                });
         };
 
         vm.fnInitEmployee = function(){

@@ -1,43 +1,60 @@
 <section ng-init="emp.fnInitModalEmployee()">
 <div class="modal-content">
-    <div class="modal-header">
-        <button type="button" class="close" ng-click="emp.fnCancel()">&times;</button>
-        <h4 class="modal-title">{{emp.employee.name}}</h4>
+    <div class="modal-header col-lg-12" >
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xs-7 col-sm-7">
+            <h3 class="modal-title">{{emp.title}}</h3>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xs-7 col-sm-7 modal-action-button">
+            <button type="button"  ng-disabled="!employeeForm.$dirty || employeeForm.$invalid" class="btn btn-sm" ng-show="emp.edit" ng-click="emp.fnEditSave(emp.employee)">
+                <i class="glyphicon glyphicon-save-file"></i>
+            </button>
+            <button type="button"  class="btn btn-sm" ng-click="emp.fnToggleView()">
+                <i class="glyphicon" ng-class="emp.edit ? 'glyphicon-remove' : 'glyphicon-edit'"></i>
+            </button>
+            <button type="button"  class="btn btn-sm" ng-click="emp.fnRemoveModalEmployee(emp.employee)">
+                <i class="glyphicon glyphicon-trash"></i>
+            </button>
+        </div>
     </div>
-    <div class="modal-body">
+    <div class="modal-body col-lg-12">
         <form name="employeeForm" class="form-horizontal" role="form" novalidate>
             <div class="form-group" ng-class="{ 'has-error':  employeeForm.name.$dirty && employeeForm.name.$error.required ||  employeeForm.name.$touched && employeeForm.name.$invalid}">
                 <label class="control-label col-sm-2">Name *</label>
-                <div class="col-sm-10">
-                    <input type="text" ng-model="emp.employee.name" class="form-control" name="name" id="name" placeholder="Employee name" required=""/>
-                    <span ng-show="employeeForm.name.$dirty && employeeForm.name.$error.required ||  employeeForm.name.$touched && employeeForm.name.$invalid" class="help-block">Employee name is required</span>
+                <div ng-show="emp.edit" class="col-sm-10">
+                    <input type="text" ng-model="emp.employee.name" ng-pattern="/^[a-zA-Z\s]*$/" class="form-control" name="name" id="name" placeholder="Employee name" required=""/>
+                    <span ng-show="employeeForm.name.$dirty && employeeForm.name.$error.required" class="help-block">Employee name is required</span>
+                    <span ng-show="employeeForm.name.$touched && employeeForm.name.$invalid" class="help-block">Please input valid name.</span>
                 </div>
+                <div ng-show="!emp.edit" class="col-sm-10 margin-top-7"><span ng-bind="emp.employee.name"></span></div>
             </div>
             <div class="form-group" ng-class="{ 'has-error':  employeeForm.company.$dirty && employeeForm.company.$error.required ||  employeeForm.company.$touched && employeeForm.company.$invalid}">
                 <label class="control-label col-sm-2">Company *</label>
-                <div class="col-sm-10">
+                <div ng-show="emp.edit" class="col-sm-10">
                     <input type="text" ng-model="emp.employee.company" class="form-control" name="company" id="company" placeholder="Employee Company name" required=""/>
                     <span ng-show="employeeForm.company.$dirty && employeeForm.company.$error.required || employeeForm.company.$touched && employeeForm.company.$invalid" class="help-block">Employee Company name is required</span>
                 </div>
+                <div ng-show="!emp.edit" class="col-sm-10 margin-top-7"><span ng-bind="emp.employee.company"></span></div>
             </div>
             <div class="form-group" ng-class="{ 'has-error':  employeeForm.balance.$dirty && employeeForm.balance.$error.required ||  employeeForm.balance.$touched && employeeForm.balance.$invalid}">
                 <label class="control-label col-sm-2">Balance *</label>
-                <div class="col-sm-10">
+                <div ng-show="emp.edit" class="col-sm-10">
                     <input type="number" ng-model="emp.employee.balance" min="0" class="form-control" name="balance" id="balance" placeholder="Employee Balance" required=""/>
                     <span ng-show="employeeForm.balance.$dirty && employeeForm.balance.$error.required" class="help-block">Employee balance is required</span>
                     <span ng-show="employeeForm.balance.$touched && employeeForm.balance.$invalid" class="help-block">Please input valid balance</span>
                 </div>
+                <div ng-show="!emp.edit" class="col-sm-10 margin-top-7"><span ng-bind="emp.employee.balance"></span></div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2">Gender *</label>
-                <div class="btn-group col-sm-10">
+                <div ng-show="emp.edit" class="btn-group col-sm-10">
                     <label class="btn btn-default" ng-model="emp.employee.gender"  uib-btn-radio="'male'">Male</label>
                     <label class="btn btn-default" ng-model="emp.employee.gender"  uib-btn-radio="'female'">Female</label>
                 </div>
+                <div ng-show="!emp.edit" class="col-sm-10 margin-top-7"><span ng-bind="emp.employee.gender"></span></div>
             </div>
             <div class="form-group" ng-class="{ 'has-error':  employeeForm.registered.$dirty && employeeForm.registered.$error.required ||  employeeForm.registered.$touched && employeeForm.registered.$invalid}">
                 <label class="control-label col-sm-2">Register Date *</label>
-                <div class="col-sm-10">
+                <div ng-show="emp.edit" class="col-sm-10">
                     <p class="input-group">
                         <input type="text" class="form-control" uib-datepicker-popup="" ng-model="emp.employee.registered" name="registered" id="registered" is-open="emp.popup2.opened" ng-required="true" close-text="Close" />
                       <span class="input-group-btn">
@@ -47,18 +64,21 @@
                     <span ng-show="employeeForm.registered.$dirty && employeeForm.registered.$error.required" class="help-block">Employee Date is required</span>
                     <span ng-show="employeeForm.registered.$touched && employeeForm.registered.$invalid" class="help-block">Please input valid date.</span>
                 </div>
+                <div ng-show="!emp.edit" class="col-sm-10 margin-top-7"><span ng-bind="emp.employee.registered | date:'yyyy-MM-dd'"></span></div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2">Address</label>
-                <div class="col-sm-10">
+                <div ng-show="emp.edit" class="col-sm-10">
                     <textarea type="text" ng-model="emp.employee.address" class="form-control" name="address" id="address" placeholder="Employee Address"/>
                 </div>
+                <div ng-show="!emp.edit" class="col-sm-10 margin-top-7"><span ng-bind="emp.employee.address"></span></div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2">About</label>
-                <div class="col-sm-10">
+                <div ng-show="emp.edit" class="col-sm-10">
                     <textarea type="text" ng-model="emp.employee.about" class="form-control" name="about" id="about" placeholder="About Employee"/>
                 </div>
+                <div ng-show="!emp.edit" class="col-sm-10 margin-top-7"><span ng-bind="emp.employee.about"></span></div>
             </div>
         </form>
     </div>
