@@ -40,14 +40,16 @@
 
 
         vm.fnGetEmployee = function(){
+            vm.employee = {};
             EmployeesService.get($stateParams.id)
                 .then(function(emp){
                     vm.employee = emp;
-                    $log.log("Get employee: ",emp);
                     vm.employee.registered = $stateParams.id === 'add' ? new Date() : new Date($filter('date')(vm.employee.registered, "yyyy-MM-dd"));
-                    vm.employee.gender = $stateParams.id === 'add' ? 'male' : vm.employee.gender;
                     // store the specific employee data when updating to require original data
                     vm.preFilledEmployeeData = angular.copy(vm.employee);
+                },function(){
+                    vm.employee.gender = $stateParams.id === 'add' ? 'male' : vm.employee.gender;
+                    $log.log("Get employee: ",vm.employee);
                 });
         };
 

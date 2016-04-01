@@ -3,6 +3,7 @@
 var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
+var gulpIf = require('gulp-if');
 
 var $ = require('gulp-load-plugins')({
   pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
@@ -72,9 +73,16 @@ gulp.task('html', ['inject', 'partials'], function () {
 // Custom fonts are handled by the "other" task
 gulp.task('fonts', function () {
   return gulp.src($.mainBowerFiles())
-    .pipe($.filter('**/*.{eot,svg,ttf,woff,woff2}'))
+    .pipe($.filter(['**/*.{eot,svg,ttf,woff,woff2}','!**/ui-grid.{eot,svg,ttf,woff,woff2}']))
     .pipe($.flatten())
     .pipe(gulp.dest(path.join(conf.paths.dist, '/fonts/')));
+});
+
+gulp.task('ui-grid-fonts',function(){
+    return gulp.src($.mainBowerFiles())
+        .pipe($.filter('**/ui-grid.{eot,svg,ttf,woff,woff2}'))
+        .pipe($.flatten())
+        .pipe(gulp.dest(path.join(conf.paths.dist, '/styles/')));
 });
 
 gulp.task('other', function () {
@@ -94,4 +102,4 @@ gulp.task('clean', function () {
   return $.del([path.join(conf.paths.dist, '/'), path.join(conf.paths.tmp, '/')]);
 });
 
-gulp.task('build', ['html', 'fonts', 'other']);
+gulp.task('build', ['html', 'fonts', 'other','ui-grid-fonts']);

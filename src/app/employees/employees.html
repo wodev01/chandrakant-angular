@@ -18,7 +18,7 @@
                 <uib-tab class="outline-none" ui-sref="main.employees({view:'grid'})" index="1" heading="Grid View">
                     <div class="row tab-details margin-top-15">
                         <div class="col-lg-12">
-                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 employee-detail" ng-repeat="employee in employees.employees | filter: searchEmployee">
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 employee-detail" ng-repeat="employee in employees.employees | filter: searchEmployee track by $index">
                                 <div>
                                     <i class="glyphicon glyphicon-user employee-image"></i>
                                 </div>
@@ -58,7 +58,7 @@
                                             <td>
                                                 <div class="btn-group btn-group-sm">
                                                     <button type="button"  class="btn btn-primary" ui-sref="main.employee({id:employee._id})"><i class="glyphicon glyphicon-edit"></i></button>
-                                                    <button type="button"  class="btn btn-danger" ng-click="employees.fnRemoveEmployee(employee._id)"><i class="glyphicon glyphicon-trash"></i></button>
+                                                    <button type="button"  class="btn btn-danger" ng-click="employees.fnRemoveEmployee(employee)"><i class="glyphicon glyphicon-trash"></i></button>
                                                 </div>
                                             </td>
                                         </tr>

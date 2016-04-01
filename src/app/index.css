@@ -212,15 +212,15 @@ ul.alert-dropdown {
     background-color: white;
 }
 
-.grid-operation > button{
-
-}
-
 
 /* Start: boot-strap class*/
 
 .background-color-white{
     background-color: white;
+}
+
+.text-align-right{
+    text-align: right;
 }
 
 .margin-5{
@@ -237,6 +237,13 @@ ul.alert-dropdown {
 }
 .margin-top-15 {
     margin-top: 15px;
+}
+.margin-top-30 {
+    margin-top: 30px;
+}
+
+.padding-0{
+    padding: 0px;
 }
 
 .padding-5{
@@ -256,5 +263,8 @@ ul.alert-dropdown {
     padding-left: 15px;
 }
 
+.padding-right-0{
+    padding-right: 0px;
+}
 
 /* end: boot-strap class*/

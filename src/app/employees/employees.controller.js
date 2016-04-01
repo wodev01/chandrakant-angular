@@ -101,9 +101,11 @@
             {
                 name: 'picture',
                 displayName: 'Picture',
-                cellTemplate : '<div class="ngCellText ui-grid-cell-contents ng-binding ng-scope image-wrapper"><img src="{{COL_FIELD}}" height="30" width="30"/></div>',
+                cellTemplate : '<div class="image-wrapper"><img src="{{COL_FIELD}}" height="30" width="30"/></div>',
                 width : '8%',
-                enableFiltering : false
+                enableFiltering : false,
+                enableColumnMenu : false,
+                enableSorting : false
             },
             { name: 'name', displayName: 'Name'},
             { name: 'age', displayName: 'Age',width: '5%'},
