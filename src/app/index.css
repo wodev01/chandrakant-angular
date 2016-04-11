@@ -80,31 +80,6 @@
     white-space: normal;
 }
 
-ul.message-dropdown {
-    padding: 0;
-    max-height: 250px;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
-li.message-preview {
-    width: 275px;
-    border-bottom: 1px solid rgba(0,0,0,.15);
-}
-
-li.message-preview>a {
-    padding-top: 15px;
-    padding-bottom: 15px;
-}
-
-li.message-footer {
-    margin: 5px 0;
-}
-
-ul.alert-dropdown {
-    width: 200px;
-}
-
 /* Side Navigation */
 
 @media(min-width:768px) {
@@ -175,12 +150,6 @@ ul.alert-dropdown {
     padding-top: 10px;
 
 }
-.grid-employee-image .img{
-    /*font-size: 2em;*/
-    /*color: #A9A9A9;*/
-    border: 1px solid #ccc;
-    border-radius: 50%;
-}
 
 .gridLableEmpName{
     margin: 10px;
@@ -201,11 +170,6 @@ ul.alert-dropdown {
 
 .wrap {
     white-space: normal;
-}
-
-.modal-content > .modal-header > .modal-action-button{
-    text-align: right;
-    padding: 0;
 }
 
 .modal-content > .modal-header > .modal-action-button > button{

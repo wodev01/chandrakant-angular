@@ -5,13 +5,13 @@
             <h3 class="modal-title">{{emp.title}}</h3>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xs-7 col-sm-7 text-align-right padding-0">
-            <button type="button"  ng-disabled="!employeeForm.$dirty || employeeForm.$invalid" class="btn btn-sm" ng-show="emp.edit" ng-click="emp.fnEditSave(emp.employee)">
+            <button type="button"  ng-disabled="!employeeForm.$dirty || employeeForm.$invalid" class="btn btn-sm background-color-white" ng-show="emp.edit" ng-click="emp.fnEditSave(emp.employee)">
                 <i class="glyphicon glyphicon-save-file"></i>
             </button>
-            <button type="button"  class="btn btn-sm" ng-click="emp.fnToggleView()">
+            <button type="button"  class="btn btn-sm background-color-white" ng-click="emp.fnToggleView()">
                 <i class="glyphicon" ng-class="emp.edit ? 'glyphicon-remove' : 'glyphicon-edit'"></i>
             </button>
-            <button type="button"  class="btn btn-sm" ng-click="emp.fnRemoveModalEmployee(emp.employee)">
+            <button type="button"  class="btn btn-sm background-color-white" ng-click="emp.fnRemoveModalEmployee(emp.employee)">
                 <i class="glyphicon glyphicon-trash"></i>
             </button>
         </div>
